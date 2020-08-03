@@ -21,6 +21,7 @@ class Index extends Component{
             this.setState(() => {
                 return{
                     numbers:con,
+                    total:0
                 }
             })
         }    

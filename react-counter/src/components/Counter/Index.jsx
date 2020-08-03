@@ -27,6 +27,14 @@ class Count extends Component{
         })
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState(() => {
+            return{
+                number:0,
+            }
+        })
+    }
+
     render(){
         return (
             <div>
