@@ -10,6 +10,7 @@ class Count extends Component{
     }
 
     increase = () =>{
+        this.props.ParentIncrease();
         this.setState((prevState) => {
             return{
                 number:prevState.number+1,
@@ -18,6 +19,7 @@ class Count extends Component{
     }
 
     reduce = () =>{
+        this.props.ParentReduce();
         this.setState((prevState) => {
             return{
                 number:prevState.number-1,

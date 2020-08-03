@@ -5,7 +5,8 @@ class Index extends Component{
     constructor(props){
         super(props);
         this.state = {
-            numbers:0
+            numbers:0,
+            total:0
         }
     }
     gerenateCount = (value) =>{
@@ -24,15 +25,33 @@ class Index extends Component{
             })
         }    
     }
+
+    increase = () =>{
+        this.setState((prevState) => {
+            return{
+                total:prevState.total+1,
+            }
+        })
+    }
+
+    reduce = () =>{
+        this.setState((prevState) => {
+            return{
+                total:prevState.total-1,
+            }
+        })
+    }
+
     render(){
         return(
             <div>
                 number of counters:<input type="text" onChange={this.gerenateCount}/>
+                <div>total:<span>{this.state.total}</span></div>
                 {Array(this.state.numbers).fill(0).map((value,index)=>{
                     return(
-                        <Count key={index}/>
+                        <Count key={index} ParentIncrease={this.increase} ParentReduce={this.reduce}/>
                     ) 
-                })}
+                })} 
             </div>
         )
     }
