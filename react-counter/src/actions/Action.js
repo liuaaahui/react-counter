@@ -1,16 +1,16 @@
 export const INCREASE='INCREASE';
 export const DECREASE='DECREASE';
+export const GIVENUMBER='GIVENUMBER';
+export const CLEAN='CLEAN';
  
-// export function increaseActionGenerator(){
-//     return {
-//         type:INCREASE,
-//         data:1
-//     }
-// }
+export function increaseAction(){
+    return {
+        type:INCREASE
+    }
+}
  
-// export function decreaseActionGenerator(){
-//     return {
-//         type:DECREASE,
-//         data:1
-//     }
-// }
+export function decreaseAction(){
+    return {
+        type:DECREASE
+    }
+}

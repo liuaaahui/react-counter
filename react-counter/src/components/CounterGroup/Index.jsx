@@ -1,38 +1,20 @@
 import React, {Component} from 'react';
 import Count from '../Counter/Index';
-import store from '../../stores/Index';
+import {GIVENUMBER, CLEAN} from "../../actions/Action";
 
-class Index extends Component{
-    constructor(props){
-        super(props);
-        this.state = store.getState();
-        // this.setState = store.getState();
-        this.handleStoreChange = this.handleStoreChange.bind(this);
-        store.subscribe(this.handleStoreChange);
-    }
-  
-    handleStoreChange(){
-        this.state = store.getState();
-        console.log(this.state)
-        // this.setState(store.getState());
-    }
+class Index extends Component{ 
     gerenateCount = (value) =>{
-        // console.log(this.props.store.getState())
         let con = parseInt(value.target.value)
         if(Number.isNaN(con)){
-            this.setState(() => {
-                return{
-                    numbers:0,
-                }
-            })
+            this.props.countUpdate({type: CLEAN, data: 0})
         } else {
-            this.setState(() => {
-                return{
-                    numbers:con,
-                    total:0
-                }
-            })
+            this.props.countUpdate({type: GIVENUMBER, data: con})
+
         }    
+    }
+
+    updateNumbers = (type) =>{
+        this.props.countUpdate(type)
     }
 
     increase = () =>{
@@ -52,13 +34,14 @@ class Index extends Component{
     }
 
     render(){
+        let {numbers, total} = this.props
         return(
             <div>
                 number of counters:<input type="text" onChange={this.gerenateCount}/>
-                <div>total:<span>{this.state}</span></div>
-                {Array(3).fill(0).map((value,index)=>{
+                <div>total:<span>{total}</span></div>
+                {Array(numbers).fill(0).map((value,index)=>{
                     return(
-                        <Count key={index} ParentIncrease={this.increase} ParentReduce={this.reduce}/>
+                        <Count key={index} ParentUpdate={this.updateNumbers} numbers={this.props.numbers}/>
                     ) 
                 })} 
             </div>

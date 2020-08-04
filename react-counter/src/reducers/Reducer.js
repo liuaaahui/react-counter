@@ -1,23 +1,30 @@
-import {INCREASE, DECREASE} from "../actions/Action";
+import {INCREASE, DECREASE, GIVENUMBER, CLEAN} from "../actions/Action";
  
-export function ChangeValue(state=0,action){
+let initState = {
+    numbers:0,
+    total:0
+}
+
+export function ChangeValue(state=initState,action){
+    let newState = {...state};
     switch(action.type){
         case INCREASE:
-            return state + action.data;
+            newState.total = state.total + action.data;
+            return newState
         case DECREASE:
-            return state - action.data;
+            newState.total = state.total - action.data;
+            return newState
+        case GIVENUMBER:
+            newState.numbers = action.data;
+            newState.total = 0;
+            return newState
+        case CLEAN:
+            newState.total = action.data;
+            newState.numbers = action.data;
+            return newState
         default:
-            return state;
+            return newState;
     }
 }
-export function ChangeNumber(state=0,action){
-    switch(action.type){
-        case INCREASE:
-            return state + action.data;
-        case DECREASE:
-            return state - action.data;
-        default:
-            return state;
-    }
-}
+
 

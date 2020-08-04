@@ -1,34 +1,45 @@
 import React, {Component} from 'react';
 import {INCREASE, DECREASE} from "../../actions/Action";
-import store from '../../stores/Index';
 
 class Count extends Component{
+    constructor(props){
+        super(props);
+        this.state = {counts:0}
+    }
 
     increase = () =>{
-        
-        store.dispatch({type: INCREASE, data: 1})
-        console.log(store.getState());
+        this.setState((prevState) => {
+            return{
+                counts:prevState.counts+1,
+            }
+        })
+        this.props.ParentUpdate({type: INCREASE, data: 1})
     }
 
     reduce = () =>{
-        store.dispatch({type: DECREASE, data: 1})
-        console.log(store.getState());
+        this.setState((prevState) => {
+            return{
+                counts:prevState.counts-1,
+            }
+        })
+        this.props.ParentUpdate({type: DECREASE, data: 1})
     }
 
-    // componentWillReceiveProps(nextProps){
-    //     this.setState(() => {
-    //         return{
-    //             number:0,
-    //         }
-    //     })
-    // }
+    componentDidUpdate(nextProps,nextstate){
+        if(nextProps.numbers !== this.props.numbers){
+            this.setState((prevState) => {
+                return{
+                    counts:0,
+                }
+            })
+        }
+    }
 
     render(){
-        console.log(store.getState())
         return (
             <div>
                 <button onClick={this.increase}>+</button>
-                <mark>{store.getState()}</mark>
+                <mark>{this.state.counts}</mark>
                 <button onClick={this.reduce}>-</button>
             </div>
         );
